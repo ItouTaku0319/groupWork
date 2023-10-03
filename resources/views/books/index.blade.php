@@ -21,17 +21,19 @@
     <td>{{ $record->bookName }}</td>
     <td>{{ $record->author }}</td>
     <td>
-        {{-- <a href="{{ route('bookRecommend', ['id' => $record->id]) }}">一覧</a> --}}
+        <a href="{{ route('bookCreateRecommend', ['id' => $record->id]) }}">新規</a>
+
+        {{-- 
+            <form action="/bookRecommend" method="post">
+                @csrf
+                <input type="submit" value="一覧">
+                <input type="hidden" value="{{ $record->id }}" name="id">
+            </form>
+        --}}
         
-        <form action="/bookRecommend" method="post">
-        @csrf
-        <input type="submit" value="一覧">
-        <input type="hidden" value="{{ $record->id }}" name="id">
-        </form>
     </td>
     <td>
     
-   
     
 </tr>
 @endforeach

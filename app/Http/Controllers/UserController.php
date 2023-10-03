@@ -80,10 +80,16 @@ class UserController extends Controller
             'department_id' => 'integer | between:0,1',
         ]);
 
+        if($request['department_id'] == 0)
+        {
+            $depatment_name = '一般社員';
+        }else{
+            $depatment_name = 'システム部社員';
+        }
         $user = User::query()->create([
         'name'=>$request['name'],
         'department_id'=>$request['department_id'],
-        'department_name' => $request['department_name'],
+        'department_name' => $depatment_name,
         'email' => $request['email'],
         'password'=>Hash::make($request['password'])
     ]);

@@ -42,3 +42,9 @@ Route::post('/bookDelete',[BookController::class,'bookDelete']);
 Route::get('/bookIndex',[BookController::class,'bookIndex'])->name('bookIndex');
 
 Route::post('/bookRecommend',[BookController::class,'bookRecommend']);
+
+Route::get('/bookCreateRecommend/{id}',[BookController::class,'bookCreateRecommend'])->name('bookCreateRecommend');
+
+Route::post('/bookCreateRecommend/{id}',[BookController::class,'bookCreateRecommend']);
+
+Route::post('/bookStore',[BookController::class,'review']);

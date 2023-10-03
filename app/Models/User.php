@@ -20,8 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'department_id',
-        /*'department_name',
-        <label for="department_name">部署名</label>
+        'department_name',
+        /*<label for="department_name">部署名</label>
         <input type="text" name="department_name" id="department_name">
         <br>*/
         'email',

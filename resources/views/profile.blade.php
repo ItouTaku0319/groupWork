@@ -13,12 +13,12 @@
 <!--  -->
 
 @if(\Illuminate\Support\Facades\Auth::user()->department_id === 1)
-    あなたはシステム部社員です
+    あなたは{{ \Illuminate\Support\Facades\Auth::user()->department_name }}です
     <br>
     <a href="{{ route('bookRegister') }}">書籍登録へ</a>
     <a href="{{ route('bookErase' )}}">書籍削除へ</a>
 @else
-    あなたは一般社員です
+    あなたは{{ \Illuminate\Support\Facades\Auth::user()->department_name }}です
 @endif
 <br>
 {{\Illuminate\Support\Facades\Auth::user()->name}}でログインしています。
