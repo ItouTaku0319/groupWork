@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Book;
-use App\Models\Review;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+
 
 class BookController extends Controller
 {
@@ -20,18 +19,39 @@ class BookController extends Controller
     public function bookRegister(Request $request )
     {
         $input = $request->validate([
-            'ISBN' => 'required | string',
-            'bookname' => 'required | string',
-            'author' => 'required | string'
+            'ISBN' => 'required | string'
         ]);
+
+        $isbn = $request['ISBN'];
+        $api_url = "https://api.openbd.jp/v1/get?isbn={$isbn}";
+        $response = Http::withOptions([
+            'proxy' => [
+                'http' => 'http://172.16.61.1:3128', // HTTPプロキシのアドレスとポート
+                'https' => 'http://172.16.61.1:3128', // HTTPSプロキシのアドレスとポート
+            ]
+        ])->get($api_url);
+        $book_info = $response->json();
+
+        // JSONデータからTitleTextとPersonNameを取得
+        if (isset($book_info[0]['onix']['DescriptiveDetail']['TitleDetail']['TitleElement']['TitleText']['content'])) {
+            $titleText = $book_info[0]['onix']['DescriptiveDetail']['TitleDetail']['TitleElement']['TitleText']['content'];
+        } else {
+            $titleText = 'タイトルが取得できません';
+        }
+
+        if (isset($book_info[0]['onix']['DescriptiveDetail']['Contributor']['0']['PersonName'])) {
+            $personName = $book_info[0]['onix']['DescriptiveDetail']['Contributor']['0']['PersonName']['content'];
+        } else {
+            $personName = '著者が取得できません';
+        }
 
         $book = Book::query()->create([
             'ISBN' => $request['ISBN'],
-            'bookname'=>$request['bookname'],
-            'author' => $request['author'],
+            'bookname'=>$titleText,
+            'author' => $personName,
         ]);
         return view('bookStore',$book);
-        //return redirect()->route('');
+
     }
 
     //detaに全てのデータを入れ書籍一覧表示へ遷移
@@ -85,29 +105,4 @@ class BookController extends Controller
         return view('bookDelete',$data);
     }
 
-    /* bookCreateRecommend メソッドを追加
-    public function bookCreateRecommend($id)
-    {
-        // $id を使用して必要なデータを取得するなどの処理を行う
-        $user_id = Auth::id();
-        $book_id = $id;
-
-
-        // ここで新規おすすめの作成画面を表示するビューを返すか、
-        // 新規おすすめの作成処理を行うロジックを記述する
-
-        // 例: 新規おすすめの作成画面を表示するビューを返す
-        return view('bookReview', ['bookId' => $id]);
-    }
-
-    public function bookRecommend(Request $request)
-    {
-        $book = Book::find($request->id);
-        $data = [
-            'record' => book::find($request->id)
-        ];
-        return view('bookRecommend',$data);
-    }*/
-
-    
 }

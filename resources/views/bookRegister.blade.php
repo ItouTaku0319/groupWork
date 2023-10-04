@@ -19,7 +19,9 @@
         <input type="number" name="ISBN" id="ISBN"
         value="{{ old('ISBN') }}">
     </div>
-    <div>
+
+    {{--
+        <div>
         <label for="bookname" class="bookname" id="bookname">タイトル</label>
         <input type="text" name="bookname" id="bookname"
         value="{{ old('bookname')}}">
@@ -29,6 +31,8 @@
         <input type="text" name="author" id="author"
         value="{{ old('bookname')}}">
     </div>
+        --}}
+
     <input type="submit" value="登録" class="btn btn-primary">
 
 </form>

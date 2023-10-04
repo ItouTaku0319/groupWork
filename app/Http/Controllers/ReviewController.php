@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
@@ -33,11 +34,28 @@ class ReviewController extends Controller
         //return redirect()->route('');
     }
 
-    public function reviewList()
+    public function reviewList(Request $request)
     {
         $data = [
-            'records' => book::all()
+            'userInfo' => Auth::id(),
+            'bookInfo' => book::find($request->id),
         ];
-        return view('reviewListShow',$data);
+    
+        if ($request->has('show_my_reviews')) {
+            // 自分のレビューのみを取得
+            $data['reviews'] = review::where('bookId', $request->id)->where('usersId', Auth::id())->get();
+        } else {
+            // 全てのレビューを取得
+            $data['reviews'] = review::where('bookId', $request->id)->get();
+        }
+    
+        return view('reviewListShow', $data);
+        // $data = [
+        //     'userInfo' => Auth::id(),
+        //     'bookInfo' => book::find($request->id),
+        //     'reviews' => review::where('bookId',$request->id)->get()
+        // ];
+        // return view('reviewListShow',$data);
     }
+
 }

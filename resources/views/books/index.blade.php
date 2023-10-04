@@ -24,13 +24,10 @@
         <a href="/reviewInsert?id={{ $record->id }}">新規</a>
 
         <a href="/reviewList?id={{ $record->id }}">一覧</a>
-        {{-- 
-            <form action="/bookRecommend" method="post">
-                @csrf
-                <input type="submit" value="一覧">
-                <input type="hidden" value="{{ $record->id }}" name="id">
-            </form>
-        --}}
+
+        {{-- <a href="/reviewUserList?id={{ $record->id }}">自分の投稿</a> --}}
+        
+
         
     </td>
     <td>
