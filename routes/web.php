@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+//ユーザーコントローラー
+
 Route::get('/register',[UserController::class,'showRegister'])->name('register');
 Route::post('/register',[UserController::class,'register']);
 
@@ -31,6 +34,9 @@ Route::get('/login',[UserController::class,'showLogin'])->name('login');
 
 Route::post('/login',[UserController::class,'login']);
 
+
+//ブックコントローラー
+
 Route::get('/bookRegister',[BookController::class,'showbookRegister'])->name('bookRegister');
 Route::post('/bookRegister',[BookController::class,'bookRegister']);
 
@@ -41,10 +47,17 @@ Route::post('/bookDelete',[BookController::class,'bookDelete']);
 
 Route::get('/bookIndex',[BookController::class,'bookIndex'])->name('bookIndex');
 
-Route::post('/bookRecommend',[BookController::class,'bookRecommend']);
-
-Route::get('/bookCreateRecommend/{id}',[BookController::class,'bookCreateRecommend'])->name('bookCreateRecommend');
-
-Route::post('/bookCreateRecommend/{id}',[BookController::class,'bookCreateRecommend']);
+// Route::post('/bookRecommend',[BookController::class,'bookRecommend']);
+// Route::get('/bookCreateRecommend/{id}',[BookController::class,'bookCreateRecommend'])->name('bookCreateRecommend');
+// Route::post('/bookCreateRecommend/{id}',[BookController::class,'bookCreateRecommend']);
 
 Route::post('/bookStore',[BookController::class,'review']);
+
+
+//レビューコントローラー
+
+
+Route::get('/reviewInsert',[ReviewController::class,'reviewInsert']);
+Route::post('/reviewShow',[ReviewController::class,'reviewShow']);
+
+Route::get('/reviewList',[ReviewController::class,'reviewList']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Book;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -84,7 +85,7 @@ class BookController extends Controller
         return view('bookDelete',$data);
     }
 
-    // bookCreateRecommend メソッドを追加
+    /* bookCreateRecommend メソッドを追加
     public function bookCreateRecommend($id)
     {
         // $id を使用して必要なデータを取得するなどの処理を行う
@@ -96,7 +97,7 @@ class BookController extends Controller
         // 新規おすすめの作成処理を行うロジックを記述する
 
         // 例: 新規おすすめの作成画面を表示するビューを返す
-        return view('bookCreateRecommend', ['bookId' => $id]);
+        return view('bookReview', ['bookId' => $id]);
     }
 
     public function bookRecommend(Request $request)
@@ -106,21 +107,7 @@ class BookController extends Controller
             'record' => book::find($request->id)
         ];
         return view('bookRecommend',$data);
-    }
+    }*/
 
-
-    //コメント登録メソッド
-    public function review(Request $request )
-    {
-        
-
-        $review = Book::query()->create([
-            'bookId' => null,
-            'usersId' => Auth::id(),
-            'recommend' => $request['recommend'],
-            'comment'=>$request['comment'],
-        ]);
-        return view('bookStore',$review);
-        //return redirect()->route('');
-    }
+    
 }
