@@ -21,7 +21,10 @@
 <table class="table">
 <tr><th>おすすめ度</th><th>コメント</th></tr>
 <tr>
-    
+    @foreach
+    <td></td>
+    <td></td>
+
 </tr>
 </table>
 @endsection
