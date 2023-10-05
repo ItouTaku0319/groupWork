@@ -58,4 +58,61 @@ class ReviewController extends Controller
         // return view('reviewListShow',$data);
     }
 
+
+    public function reviewEdit(Request $request)
+    {
+        $data = [
+            'userInfo' => Auth::id(),
+            'reviewInfo' => review::find($request->id),
+        ];
+        $data['reviews'] = review::where('id', $request->id)->where('usersId', Auth::id())->get();
+
+        return view('reviewEdit',$data);
+    }
+
+    public function reviewUpdate(Request $request)
+    {
+        //更新対象のレコードをフォームからのid値をもとにモデルに取り出す
+        $review = review::find($request->id);
+        //フォームのデータをモデルに代入
+        $review -> recommend = $request->recommend;
+        $review -> comment = $request->comment;
+        //モデルのデータをテーブルに保存
+        $review -> save();
+        $data = [
+            'id' => $request->id,
+            'bookId' => $request->bookId,
+            'usersId' => $request->userId,
+            'recommend' => $request->recommend,
+            'comment' => $request->comment,
+        ];
+        return view('reviewUpdate',$data);
+    }
+
+    public function reviewErase(Request $request)
+    {
+        $data = [
+            'userInfo' => Auth::id(),
+            'reviewInfo' => review::find($request->id),
+        ];
+        $data['reviews'] = review::where('id', $request->id)->where('usersId', Auth::id())->get();
+        return view('reviewErase',$data);
+    }
+
+    public function reviewDelete(Request $request)
+    {
+        //削除対象のレコードをフォームからのid値をもとに
+        //モデルに取り出す
+        $review = review::find($request->id);
+        //データを削除するメソッドを実行
+        $review->delete();
+        $data = [
+            'id' => $request->id,
+            'bookId' => $request->bookId,
+            'usersId' => $request->userId,
+            'recommend' => $request->recommend,
+            'comment' => $request->comment,
+        ];
+        return view ('reviewDelete',$data);
+    }
 }

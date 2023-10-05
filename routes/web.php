@@ -55,3 +55,14 @@ Route::post('/reviewShow',[ReviewController::class,'reviewShow']);
 
 Route::get('/reviewList',[ReviewController::class,'reviewList']);
 Route::post('/reviewList',[ReviewController::class,'reviewList']);
+
+//レビューの編集画面に行く
+Route::get('/reviewEdit',[ReviewController::class,'reviewEdit']);
+
+//レビューの更新
+Route::post('/reviewUpdate',[ReviewController::class,'reviewUpdate']);
+
+//レビューの削除画面に行く
+Route::get('/reviewErase',[ReviewController::class,'reviewErase']);
+
+Route::post('/reviewDelete',[ReviewController::class,'reviewDelete']);
