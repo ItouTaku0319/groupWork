@@ -109,10 +109,11 @@ class ReviewController extends Controller
         $data = [
             'id' => $request->id,
             'bookId' => $request->bookId,
-            'usersId' => $request->userId,
+            'usersId' => $request->usersId,
             'recommend' => $request->recommend,
             'comment' => $request->comment,
         ];
+        
         return view ('reviewDelete',$data);
     }
 }

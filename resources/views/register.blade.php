@@ -6,7 +6,7 @@
 @endsection
 
 @section('main')
-<!--  -->
+<!-- 新規登録画面 -->
 <h1>登録画面</h1>
 <form action="" method="post">
         @csrf
