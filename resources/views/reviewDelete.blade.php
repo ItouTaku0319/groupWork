@@ -11,7 +11,7 @@
 <!--  -->
 
 <h1>以下のコメントを削除しました</h1>
-<table>
+<table></table>
 <tr><th>おすすめ度</th><th>コメント</th></tr>
 <tr>
     <td>{{ $recommend }}</td>
